@@ -11,27 +11,24 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-light bg-black fixed-top">
-    <div class="container-fluid">
-      <a href="index.html" class="navbar-brand text-white fs-3">AskPak</a>
-      <div class="d-flex m-2">
-        <form class="me-2">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-        </form>
-        <a href="ask.html" class="btn btn-warning">ASK!</a>
-      </div>
-      <div class="m-2">
-        <a href="login.html" class="btn btn-outline-light me-2">Log in</a>
-        <a href="signup.html" class="btn btn-secondary">Sign up</a>
-      </div>
+  <nav class="navbar navbar-light bg-black fixed-top justify-content-evenly">
+    <a href="index.html" class="navbar-brand text-white fs-3">AskPak</a>
+    <form class=" w-50 me-2">
+      <input type="search" class="form-control form-control-dark" placeholder="Search...">
+    </form>
+    <a href="ask.html" class="btn btn-warning fw-bold">ASK!</a>
+    <div class="m-2">
+      <a href="login.html" class="btn btn-outline-light me-2">Log in</a>
+      <a href="signup.html" class="btn btn-secondary">Sign up</a>
     </div>
+
   </nav>
 
   <!-- Begin page content -->
   <main class="container mt-5 pt-5">
     <div class="row g-4">
       <!-- Ask Form -->
-      <div class="col-8">
+      <div class="col-9">
         <h2 class="mb-3">New Question</h2>
         <form method="post">
           <div class="input-group mb-3">
@@ -51,7 +48,7 @@
         </form>
       </div>
       <!-- Links -->
-      <div class="col-4">
+      <div class="col-3">
         <div class="pt-5 p-2">
           <h2>Popular Tags</h2>
           <a href="#" class="link-">tag</a>
