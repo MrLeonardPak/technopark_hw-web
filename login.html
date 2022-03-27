@@ -32,12 +32,18 @@
         <h2 class="mb-3">Log In</h2>
         <form method="post">
           <div class="form-floating mb-3 w-50 mx-auto">
-            <input type="email" class="form-control" placeholder="name@example.com">
+            <input type="email" class="form-control is-invalid" placeholder="name@example.com">
             <label>Email address</label>
+            <div class="invalid-feedback">
+              Wrong email!
+            </div>
           </div>
           <div class="form-floating mb-3 w-50 mx-auto">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control is-invalid" placeholder="Password">
             <label>Password</label>
+            <div class="invalid-feedback">
+              Wrong password!
+            </div>
           </div>
           <button class="w-25 btn btn-lg btn-dark mb-3" type="submit">Log in!</button>
         </form>
