@@ -1,0 +1,50 @@
+{% extends "inc/base.html"%}
+
+{% block content %}
+<!-- Ask form -->
+<h2 class="mb-3">New Question</h2>
+<form method="post">
+  <div class="input-group mb-3">
+    <span class="input-group-text fs-4">Title</span>
+    <input type="text" class="form-control fs-5 is-invalid">
+    <div class="invalid-feedback">
+      Title missing!
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text fs-4">Text</span>
+    <textarea class="form-control fs-5 is-invalid" placeholder="Enter your text here.."
+      style="height: 250px;"></textarea>
+    <div class="invalid-feedback">
+      Text missing!
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text fs-4">Tags</span>
+    <input type="text" class="form-control fs-5 is-invalid">
+    <div class="invalid-feedback">
+      Tag missing!
+    </div>
+  </div>
+  <button class="d-block btn btn-outline-primary btn-lg w-25 mx-auto fw-bold align-center" type="submit">ASK!</button>
+</form>
+{% endblock content %}
+
+{% block side_panel %}
+<!-- Links -->
+<div class="pt-5 p-2">
+  <h2>Popular Tags</h2>
+  <a href="#" class="link-">tag</a>
+  <a href="#" class="link-">tag</a>
+  <a href="#" class="link-">tag</a>
+  <a href="#" class="link-">tag</a>
+</div>
+<div class="p-2">
+  <h2>Best Members</h2>
+  <ul class="list-unstyled">
+    <li><a href="#" class="link-primary">Member 1</a></li>
+    <li><a href="#" class="link-primary">Member 2</a></li>
+    <li><a href="#" class="link-primary">Member 3</a></li>
+  </ul>
+</div>
+{% endblock side_panel %}
