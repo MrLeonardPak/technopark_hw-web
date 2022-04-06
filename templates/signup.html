@@ -1,0 +1,70 @@
+{% extends "inc/base.html"%}
+
+{% block content %}
+<!-- Registration form -->
+<h2 class="mb-3">Registration</h2>
+<form method="post">
+  <div class="row g-3">
+    <div class="col-12">
+      <p class="form-label">Login</p>
+      <input type="text" class="form-control is-invalid" placeholder="Login">
+      <div class="invalid-feedback">
+        Login missing!
+      </div>
+    </div>
+    <div class="col-12">
+      <p class="form-label">Email</p>
+      <input type="email" class="form-control is-invalid" placeholder="name@example.com">
+      <div class="invalid-feedback">
+        Email missing!
+      </div>
+    </div>
+    <div class="col-12">
+      <p class="form-label">NickName</p>
+      <input type="text" class="form-control is-invalid" placeholder="Username">
+      <div class="invalid-feedback">
+        NickName missing!
+      </div>
+    </div>
+    <div class="col-12">
+      <p class="form-label">Password</p>
+      <input type="text" class="form-control is-invalid" placeholder="Password">
+      <div class="invalid-feedback">
+        Password missing!
+      </div>
+    </div>
+    <div class="col-12">
+      <p class="form-label">Repeat password</p>
+      <input type="text" class="form-control is-invalid" placeholder="Password">
+      <div class="invalid-feedback">
+        Password missing!
+      </div>
+    </div>
+    <div class="col-12">
+      <p class="form-label">Upload avatar</p>
+      <input type="file" class="form-control">
+    </div>
+  </div>
+  <hr class="my-4">
+  <button class="w-100 btn btn-secondary btn-lg" type="submit">Register!</button>
+</form>
+{% endblock content %}
+
+{% block side_panel %}
+<!-- Links -->
+<div class="pt-5 p-2">
+  <h2>Popular Tags</h2>
+  <a href="#" class="link-">tag</a>
+  <a href="#" class="link-">tag</a>
+  <a href="#" class="link-">tag</a>
+  <a href="#" class="link-">tag</a>
+</div>
+<div class="p-2">
+  <h2>Best Members</h2>
+  <ul class="list-unstyled">
+    <li><a href="#" class="link-primary">Member 1</a></li>
+    <li><a href="#" class="link-primary">Member 2</a></li>
+    <li><a href="#" class="link-primary">Member 3</a></li>
+  </ul>
+</div>
+{% endblock side_panel %}

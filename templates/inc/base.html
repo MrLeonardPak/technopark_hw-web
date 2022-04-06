@@ -1,0 +1,45 @@
+{% load static %}
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AskMe - Pak</title>
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-light bg-black fixed-top justify-content-evenly">
+    <a href="index.html" class="navbar-brand text-white fs-3">AskPak</a>
+    <form class="w-50 me-2">
+      <input type="search" class="form-control form-control-dark" placeholder="Search..." />
+    </form>
+    <a href="ask.html" class="btn btn-warning fw-bold">ASK!</a>
+    <div class="m-2">
+      <a href="login.html" class="btn btn-outline-light me-2">Log in</a>
+      <a href="signup.html" class="btn btn-secondary">Sign up</a>
+    </div>
+  </nav>
+
+  <!-- Begin page content -->
+  <main class="container mt-5 pt-5">
+    <div class="row g-4">
+      <div class="col-9">
+        {% block content %}
+        <!-- Basic -->
+        {% endblock content %}
+      </div>
+      <div class="col-3">
+        {% block side_panel %}
+        <!-- Links -->
+        {% endblock side_panel %}
+      </div>
+    </div>
+  </main>
+  <footer class="mt-4 border-top"></footer>
+</body>
+
+</html>

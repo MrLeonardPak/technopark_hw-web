@@ -1,0 +1,45 @@
+{% extends "inc/base.html"%}
+
+{% block content %}
+<!-- Login form -->
+<div class="text-center">
+  <h2 class="mb-3">Log In</h2>
+  <form method="post">
+    <div class="form-floating mb-3 w-50 mx-auto">
+      <input type="text" class="form-control is-invalid" placeholder="Login">
+      <label>Login</label>
+      <div class="invalid-feedback">
+        Wrong login!
+      </div>
+    </div>
+    <div class="form-floating mb-3 w-50 mx-auto">
+      <input type="password" class="form-control is-invalid" placeholder="Password">
+      <label>Password</label>
+      <div class="invalid-feedback">
+        Wrong password!
+      </div>
+    </div>
+    <button class="w-25 btn btn-lg btn-dark mb-3" type="submit">Log in!</button>
+  </form>
+  <a class="d-block" href="signup.html">creat new account</a>
+</div>
+{% endblock content %}
+
+{% block side_panel %}
+<!-- Links -->
+<div class="pt-5 p-2">
+  <h2>Popular Tags</h2>
+  <a href="#" class="link-">tag</a>
+  <a href="#" class="link-">tag</a>
+  <a href="#" class="link-">tag</a>
+  <a href="#" class="link-">tag</a>
+</div>
+<div class="p-2">
+  <h2>Best Members</h2>
+  <ul class="list-unstyled">
+    <li><a href="#" class="link-primary">Member 1</a></li>
+    <li><a href="#" class="link-primary">Member 2</a></li>
+    <li><a href="#" class="link-primary">Member 3</a></li>
+  </ul>
+</div>
+{% endblock side_panel %}
