@@ -55,20 +55,6 @@
 {% endblock content %}
 
 {% block side_panel %}
-<!-- Links -->
-<div class="pt-5 p-2">
-  <h2>Popular Tags</h2>
-  <a href="#" class="link-">tag</a>
-  <a href="#" class="link-">tag</a>
-  <a href="#" class="link-">tag</a>
-  <a href="#" class="link-">tag</a>
-</div>
-<div class="p-2">
-  <h2>Best Members</h2>
-  <ul class="list-unstyled">
-    <li><a href="#" class="link-primary">Member 1</a></li>
-    <li><a href="#" class="link-primary">Member 2</a></li>
-    <li><a href="#" class="link-primary">Member 3</a></li>
-  </ul>
-</div>
+{% include "inc/tags_list.html" %}
+{% include "inc/members_list.html" %}
 {% endblock side_panel %}
