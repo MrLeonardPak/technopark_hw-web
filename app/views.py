@@ -1,4 +1,4 @@
-from multiprocessing import context
+from django.core.paginator import Paginator
 from django.shortcuts import render
 
 QUESTIONS = [
@@ -35,7 +35,10 @@ ANSWERS = [
 
 
 def index(request):
-    return render(request, "index.html", {"questions": QUESTIONS})
+    questions = paginate(QUESTIONS, request)
+    context = {
+        "questions": questions}
+    return render(request, "index.html", context)
 
 
 def ask(request):
@@ -56,3 +59,10 @@ def question(request, i: int):
         "answers": ANSWERS
     }
     return render(request, "question.html", context)
+
+
+def paginate(objects_list, request, per_page=10):
+    paginator = Paginator(objects_list, per_page)
+    page = request.GET.get('page')
+    objects_on_page = paginator.get_page(page)
+    return objects_on_page
