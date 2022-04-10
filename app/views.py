@@ -69,6 +69,14 @@ def hot_list(request):
     return render(request, "hot_list.html", context)
 
 
+def with_tag(request, tag: str):
+    questions = paginate(QUESTIONS[::4], request)
+    context = {
+        "tag": tag,
+        "questions": questions}
+    return render(request, "with_tag.html", context)
+
+
 def paginate(objects_list, request, per_page=10):
     paginator = Paginator(objects_list, per_page)
     page = request.GET.get('page')
