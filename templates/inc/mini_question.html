@@ -1,5 +1,6 @@
 {% load static %}
-<div class="row mx-1 my-3 py-2 border border-4 rounded-2">
+
+<div class="row mx-1 my-3 py-2 {{ with_border }}">
   <!-- Main -->
   <div class="row">
     <!-- Avatar -->
@@ -28,12 +29,12 @@
     </div>
     <!-- Text Info -->
     <div class="col d-flex flex-wrap align-items-center">
-      <a href="question.html">answer (3)</a>
-      <div class="ms-5">
-        Tags:
-        <a class="ms-2" href="#">tag</a>
-        <a class="ms-2" href="#">tag</a>
-      </div>
+      {% if on_home_page %}
+      <a class="me-5" href="{% url 'question' question.number %}">answer (3)</a>
+      {% endif %}
+      Tags:
+      <a class="ms-2" href="#">tag</a>
+      <a class="ms-2" href="#">tag</a>
     </div>
   </div>
 </div>
