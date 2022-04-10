@@ -29,7 +29,7 @@
     </div>
     <!-- Text Info -->
     <div class="col d-flex flex-wrap align-items-center">
-      {% if on_home_page %}
+      {% if with_question_link %}
       <a class="me-5" href="{% url 'question' question.number %}">answer (3)</a>
       {% endif %}
       Tags:
