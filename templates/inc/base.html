@@ -13,11 +13,11 @@
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-light bg-black fixed-top justify-content-evenly">
-    <a href="index.html" class="navbar-brand text-white fs-3">AskPak</a>
+    <a href="{% url 'home' %}" class="navbar-brand text-white fs-3">AskPak</a>
     <form class="w-50 me-2">
       <input type="search" class="form-control form-control-dark" placeholder="Search..." />
     </form>
-    <a href="ask.html" class="btn btn-warning fw-bold">ASK!</a>
+    <a href="{% url 'ask' %}" class="btn btn-warning fw-bold">ASK!</a>
     <div>
       {% block user_block %}
       <!-- User -->
