@@ -12,7 +12,9 @@
 {% include "inc/mini_answer.html" %}
 {% endfor %}
 
+{% with page=answers %}
 {% include "inc/pagination.html" %}
+{% endwith %}
 
 <hr>
 <!-- New Answer -->
