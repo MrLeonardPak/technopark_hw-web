@@ -5,14 +5,14 @@ QUESTIONS = [
     {
         "title": f"Question #{i}",
         "text": '''
-                I ate dinner. 
+                I ate dinner.
                 There is always a next time.
-                In the end, we all felt like we ate too much. 
-                We all agreed; it was a magnificent evening. 
+                In the end, we all felt like we ate too much.
+                We all agreed; it was a magnificent evening.
                 I'm confident that I'll win the tennis match.
-                She opened the door. 
-                The car turned the corner. 
-                Nothing beats a complete sentence. 
+                She opened the door.
+                The car turned the corner.
+                Nothing beats a complete sentence.
                 She advised him to see a lawyer, so he did.
                 Once you know all the elements, it's not difficult to pull together a sentence. ,
                 ''',
@@ -24,10 +24,10 @@ ANSWERS = [
     {
         "text": f'''
                 This is text for answer #{i}.
-                I don't want to fail the test. 
+                I don't want to fail the test.
                 There is always a next time.
-                You were late, weren't you ? 
-                He denied knowing anything about their plans. 
+                You were late, weren't you ?
+                He denied knowing anything about their plans.
                 No one can make you feel inferior without your consent.
                 '''
     } for i in range(7)
@@ -60,6 +60,13 @@ def question(request, i: int):
         "answers": answers
     }
     return render(request, "question.html", context)
+
+
+def hot_list(request):
+    questions = paginate(QUESTIONS[::3], request)
+    context = {
+        "questions": questions}
+    return render(request, "hot_list.html", context)
 
 
 def paginate(objects_list, request, per_page=10):
