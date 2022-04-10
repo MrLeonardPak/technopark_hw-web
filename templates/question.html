@@ -1,5 +1,10 @@
 {% extends "inc/base.html"%}
 {% load static %}
+
+{% block user_block %}
+{% include "inc/login_signup.html" %}
+{% endblock user_block %}
+
 {% block content %}
 <!-- List of questions -->
 <h2 class="mb-3">New Questions</h2>

@@ -1,9 +1,7 @@
 {% extends "inc/base.html"%}
 
 {% block user_block %}
-<!-- No login -->
-<a href="login.html" class="btn btn-outline-light me-2">Log in</a>
-<a href="signup.html" class="btn btn-secondary">Sign up</a>
+{% include "inc/login_signup.html" %}
 {% endblock user_block %}
 
 {% block content %}
