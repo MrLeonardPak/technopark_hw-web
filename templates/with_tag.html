@@ -6,7 +6,7 @@
 
 {% block content %}
 <!-- List of questions -->
-<h2 class="mb-3">All questions with tag: {{ tag }}</h2>
+<h2 class="mb-3">Tag: {{ tag }}</h2>
 
 {% with with_question_link=True with_border="border border-4 rounded-2" %}
 {% for question in questions %}
