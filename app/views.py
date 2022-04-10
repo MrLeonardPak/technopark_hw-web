@@ -30,7 +30,7 @@ ANSWERS = [
                 He denied knowing anything about their plans. 
                 No one can make you feel inferior without your consent.
                 '''
-    } for i in range(4)
+    } for i in range(7)
 ]
 
 
@@ -54,9 +54,10 @@ def signup(request):
 
 
 def question(request, i: int):
+    answers = paginate(ANSWERS, request, 5)
     context = {
         "question": QUESTIONS[i],
-        "answers": ANSWERS
+        "answers": answers
     }
     return render(request, "question.html", context)
 
