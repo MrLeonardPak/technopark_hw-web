@@ -33,31 +33,38 @@ ANSWERS = [
     } for i in range(7)
 ]
 
+TAGS = ["bla"*i for i in range(1, 5)]
+
 
 def index(request):
     questions = paginate(QUESTIONS, request)
     context = {
-        "questions": questions}
+        "questions": questions,
+        "tags": TAGS}
     return render(request, "index.html", context)
 
 
 def ask(request):
-    return render(request, "ask.html")
+    context = {"tags": TAGS}
+    return render(request, "ask.html", context)
 
 
 def login(request):
-    return render(request, "login.html")
+    context = {"tags": TAGS}
+    return render(request, "login.html", context)
 
 
 def signup(request):
-    return render(request, "signup.html")
+    context = {"tags": TAGS}
+    return render(request, "signup.html", context)
 
 
 def question(request, i: int):
     answers = paginate(ANSWERS, request, 5)
     context = {
         "question": QUESTIONS[i],
-        "answers": answers
+        "answers": answers,
+        "tags": TAGS
     }
     return render(request, "question.html", context)
 
@@ -65,7 +72,8 @@ def question(request, i: int):
 def hot_list(request):
     questions = paginate(QUESTIONS[::3], request)
     context = {
-        "questions": questions}
+        "questions": questions,
+        "tags": TAGS}
     return render(request, "hot_list.html", context)
 
 
@@ -73,7 +81,8 @@ def with_tag(request, tag: str):
     questions = paginate(QUESTIONS[::4], request)
     context = {
         "tag": tag,
-        "questions": questions}
+        "questions": questions,
+        "tags": TAGS}
     return render(request, "with_tag.html", context)
 
 
