@@ -14,8 +14,9 @@
 {% endfor %}
 {% endwith %}
 
+{% with pages=questions %}
 {% include "inc/pagination.html" %}
-
+{% endwith %}
 {% endblock content %}
 
 {% block side_panel %}
