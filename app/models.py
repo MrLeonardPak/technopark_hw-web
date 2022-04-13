@@ -9,13 +9,13 @@ class QuestionManager(models.Manager):
         return self.annotate(num_likes=models.Count('likes')).order_by('-num_likes')
 
     def new_questions(self):
-        return self.order_by('-created')
+        return self.annotate(num_likes=models.Count('likes')).order_by('-created')
 
     def with_tag(self, tag):
-        return self.filter(tags__name=tag)
+        return self.annotate(num_likes=models.Count('likes')).filter(tags__name=tag)
 
     def single_question(self, id):
-        return self.get(id=id)
+        return self.annotate(num_likes=models.Count('likes')).get(id=id)
 
 
 class AnswerManager(models.Manager):
