@@ -12,7 +12,7 @@ class QuestionManager(models.Manager):
         return self.order_by('-created')
 
     def with_tag(self, tag):
-        return self.filter(tags__name=tag).order_by('-rating').order_by('-created')
+        return self.filter(tags__name=tag).order_by('-created').order_by('-rating')
 
     def single_question(self, id):
         return self.get(id=id)
@@ -20,7 +20,7 @@ class QuestionManager(models.Manager):
 
 class AnswerManager(models.Manager):
     def to_question(self, id):
-        return self.filter(question__exact=id).order_by('-rating').order_by('-created')
+        return self.filter(question__exact=id).order_by('-created').order_by('-rating')
 
 
 class Question(models.Model):
@@ -53,7 +53,7 @@ class Answer(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
 
     def __str__(self):
         return self.name
@@ -86,7 +86,7 @@ class LikeForAnswer(models.Model):
     is_like = models.BooleanField()
 
     def __str__(self):
-        return 'by ' + self.owner.user.username + ' to ' + self.answer.title
+        return 'by ' + self.owner.user.username + ' to answer for ' + self.answer.question.title
 
     class Meta:
         unique_together = ['owner', 'answer']
