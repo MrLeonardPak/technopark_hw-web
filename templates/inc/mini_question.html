@@ -35,8 +35,9 @@
       <a class="me-5" href="{% url 'question' question.id %}">answer ({{ question.answer_cnt }})</a>
       {% endif %}
       Tags:
-      <a class="ms-2" href="#">tag</a>
-      <a class="ms-2" href="#">tag</a>
+      {% for tag in question.tags.all %}
+      <a class="ms-2" href="{% url 'with_tag' tag.name %}">{{ tag.name }}</a>
+      {% endfor %}
     </div>
   </div>
 </div>
