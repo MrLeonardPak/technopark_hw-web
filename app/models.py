@@ -30,6 +30,7 @@ class Question(models.Model):
     tags = models.ManyToManyField('Tag')
     created = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(blank=True, default=0)
+    answer_cnt = models.IntegerField(blank=True, default=0)
 
     objects = QuestionManager()
 
