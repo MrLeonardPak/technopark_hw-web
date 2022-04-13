@@ -32,7 +32,7 @@
     <!-- Text Info -->
     <div class="col d-flex flex-wrap align-items-center">
       {% if with_question_link %}
-      <a class="me-5" href="{% url 'question' question.id %}">answer (3)</a>
+      <a class="me-5" href="{% url 'question' question.id %}">answer ({{ question.answer_cnt }})</a>
       {% endif %}
       Tags:
       <a class="ms-2" href="#">tag</a>
