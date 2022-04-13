@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
-from app.models import Question, Answer, Tag, Profile, Like
+from app.models import Question, Answer, Tag, Profile, LikeForQuestion, LikeForAnswer
 
 QUESTIONS = [
     {

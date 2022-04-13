@@ -6,16 +6,16 @@ from django.contrib.auth.models import User
 
 class QuestionManager(models.Manager):
     def hot_questions(self):
-        return self.annotate(num_likes=models.Count('likes')).order_by('-num_likes')
+        return self.order_by('-rating')
 
     def new_questions(self):
-        return self.annotate(num_likes=models.Count('likes')).order_by('-created')
+        return self.order_by('-created')
 
     def with_tag(self, tag):
-        return self.annotate(num_likes=models.Count('likes')).filter(tags__name=tag)
+        return self.filter(tags__name=tag)
 
     def single_question(self, id):
-        return self.annotate(num_likes=models.Count('likes')).get(id=id)
+        return self.get(id=id)
 
 
 class AnswerManager(models.Manager):
@@ -29,8 +29,7 @@ class Question(models.Model):
     owner = models.ForeignKey('Profile', on_delete=models.CASCADE)
     tags = models.ManyToManyField('Tag')
     created = models.DateTimeField(auto_now_add=True)
-    likes = models.OneToOneField(
-        'Like', on_delete=models.SET_NULL, blank=True, null=True)
+    rating = models.IntegerField(blank=True, default=0)
 
     objects = QuestionManager()
 
@@ -44,8 +43,7 @@ class Answer(models.Model):
     question = models.ForeignKey('Question', models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     is_correct = models.BooleanField(default=False)
-    likes = models.OneToOneField(
-        'Like', on_delete=models.SET_NULL, blank=True, null=True)
+    rating = models.IntegerField(blank=True, default=0)
 
     objects = AnswerManager()
 
@@ -69,9 +67,25 @@ class Profile(models.Model):
         return self.user.username
 
 
-class Like(models.Model):
+class LikeForQuestion(models.Model):
     owner = models.ForeignKey('Profile', models.CASCADE)
+    question = models.ForeignKey('Question', models.CASCADE)
     is_like = models.BooleanField()
 
     def __str__(self):
-        return 'by ' + self.owner.user.username
+        return 'by ' + self.owner.user.username + ' to ' + self.question.title
+
+    class Meta:
+        unique_together = ['owner', 'question']
+
+
+class LikeForAnswer(models.Model):
+    owner = models.ForeignKey('Profile', models.CASCADE)
+    answer = models.ForeignKey('Answer', models.CASCADE)
+    is_like = models.BooleanField()
+
+    def __str__(self):
+        return 'by ' + self.owner.user.username + ' to ' + self.answer.title
+
+    class Meta:
+        unique_together = ['owner', 'answer']
