@@ -6,13 +6,13 @@ from django.contrib.auth.models import User
 
 class QuestionManager(models.Manager):
     def hot_questions(self):
-        return self.order_by('-rating')
+        return self.order_by('-rating').order_by('-created')
 
     def new_questions(self):
         return self.order_by('-created')
 
     def with_tag(self, tag):
-        return self.filter(tags__name=tag)
+        return self.filter(tags__name=tag).order_by('-rating').order_by('-created')
 
     def single_question(self, id):
         return self.get(id=id)
@@ -20,7 +20,7 @@ class QuestionManager(models.Manager):
 
 class AnswerManager(models.Manager):
     def to_question(self, id):
-        return self.filter(question__exact=id)
+        return self.filter(question__exact=id).order_by('-rating').order_by('-created')
 
 
 class Question(models.Model):
