@@ -41,22 +41,22 @@ def index(request):
     questions = paginate(Question.objects.new_questions(), request)
     context = {
         "questions": questions,
-        "tags": TAGS}
+        "tags": all_tags()}
     return render(request, "index.html", context)
 
 
 def ask(request):
-    context = {"tags": TAGS}
+    context = {"tags": all_tags()}
     return render(request, "ask.html", context)
 
 
 def login(request):
-    context = {"tags": TAGS}
+    context = {"tags": all_tags()}
     return render(request, "login.html", context)
 
 
 def signup(request):
-    context = {"tags": TAGS}
+    context = {"tags": all_tags()}
     return render(request, "signup.html", context)
 
 
@@ -65,7 +65,7 @@ def question(request, i: int):
     context = {
         "question": Question.objects.single_question(i),
         "answers": answers,
-        "tags": TAGS
+        "tags": all_tags()
     }
     return render(request, "question.html", context)
 
@@ -74,7 +74,7 @@ def hot_list(request):
     questions = paginate(Question.objects.hot_questions(), request)
     context = {
         "questions": questions,
-        "tags": TAGS}
+        "tags": all_tags()}
     return render(request, "hot_list.html", context)
 
 
@@ -83,8 +83,12 @@ def with_tag(request, tag: str):
     context = {
         "tag": tag,
         "questions": questions,
-        "tags": TAGS}
+        "tags": all_tags()}
     return render(request, "with_tag.html", context)
+
+
+def all_tags():
+    return Tag.objects.all
 
 
 def paginate(objects_list, request, per_page=10):
