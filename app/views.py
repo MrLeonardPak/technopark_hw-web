@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
+from app.models import Question, Answer, Tag, Profile, Like
 
 QUESTIONS = [
     {
@@ -16,7 +17,7 @@ QUESTIONS = [
                 She advised him to see a lawyer, so he did.
                 Once you know all the elements, it's not difficult to pull together a sentence. ,
                 ''',
-        "number": i
+        "id": i
     } for i in range(40)
 ]
 
@@ -37,7 +38,7 @@ TAGS = ["bla"*i for i in range(1, 5)]
 
 
 def index(request):
-    questions = paginate(QUESTIONS, request)
+    questions = paginate(Question.objects.new_questions(), request)
     context = {
         "questions": questions,
         "tags": TAGS}
@@ -60,9 +61,9 @@ def signup(request):
 
 
 def question(request, i: int):
-    answers = paginate(ANSWERS, request, 5)
+    answers = paginate(Answer.objects.to_question(i), request, 5)
     context = {
-        "question": QUESTIONS[i],
+        "question": Question.objects.single_question(i),
         "answers": answers,
         "tags": TAGS
     }
@@ -70,7 +71,7 @@ def question(request, i: int):
 
 
 def hot_list(request):
-    questions = paginate(QUESTIONS[::3], request)
+    questions = paginate(Question.objects.hot_questions(), request)
     context = {
         "questions": questions,
         "tags": TAGS}
@@ -78,7 +79,7 @@ def hot_list(request):
 
 
 def with_tag(request, tag: str):
-    questions = paginate(QUESTIONS[::4], request)
+    questions = paginate(Question.objects.with_tag(tag), request)
     context = {
         "tag": tag,
         "questions": questions,

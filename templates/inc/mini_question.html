@@ -9,7 +9,7 @@
     </div>
     <!-- Text -->
     <div class="col">
-      <a class="link-dark text-decoration-none" href="{% url 'question' question.number %}">
+      <a class="link-dark text-decoration-none" href="{% url 'question' question.id %}">
         <h3>{{ question.title }}</h3>
       </a>
       <p>{{ question.text }}</p>
@@ -32,7 +32,7 @@
     <!-- Text Info -->
     <div class="col d-flex flex-wrap align-items-center">
       {% if with_question_link %}
-      <a class="me-5" href="{% url 'question' question.number %}">answer (3)</a>
+      <a class="me-5" href="{% url 'question' question.id %}">answer (3)</a>
       {% endif %}
       Tags:
       <a class="ms-2" href="#">tag</a>
