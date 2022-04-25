@@ -54,7 +54,7 @@ def with_tag(request, tag: str):
 
 
 def all_tags():
-    return Tag.objects.all
+    return Tag.objects.all()[:10]
 
 
 def paginate(objects_list, request, per_page=10):
