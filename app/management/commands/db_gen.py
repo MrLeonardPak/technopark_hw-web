@@ -6,11 +6,11 @@ import string
 
 
 class Command(BaseCommand):
-    PROFILE_CNT = 10  # 000
-    QUESTION_CNT = 100  # 000
-    ANSWER_CNT = 1000  # 000
-    TAG_CNT = 10  # 000
-    LIKE_CNT = 2000  # 000
+    PROFILE_CNT = 10000
+    QUESTION_CNT = 100000
+    ANSWER_CNT = 1000000
+    TAG_CNT = 10000
+    LIKE_CNT = 2000000
     USERNAME_MAX_LENGTH = 10
     PASSWORD_MAX_LENGTH = 20
     EMAIL_MAX_LENGTH = 10
@@ -18,18 +18,19 @@ class Command(BaseCommand):
     TITLE_MAX_LENGTH = 60
     TEXT_MAX_LENGTH = 400
     RATING_ABS_MAX = 15
-    TAG_MAX_LENGTH = 7
+    TAG_MAX_LENGTH = 5
     TAG_MAX_FOR_QUESTION = 5
     ANSWER_MAX_FOR_QUESTION = 50
+    WORD_MAX_LENGTH = 10
 
     avatars_set = ('img/profile_1.jpg', 'img/profile_2.jpg', 'img/profile_3.jpg',
                    'img/profile_4.jpg', 'img/profile_5.jpg', 'img/profile_6.jpg')
 
     def gen_profiles(self):
-        for _ in range(self.PROFILE_CNT):
-            username = self.gen_text(self.USERNAME_MAX_LENGTH)
-            password = self.gen_text(self.PASSWORD_MAX_LENGTH)
-            email = self.gen_text(self.EMAIL_MAX_LENGTH) + self.EMAIL_TAIL
+        for i in range(self.PROFILE_CNT):
+            username = self.gen_word(self.USERNAME_MAX_LENGTH) + '_' + str(i)
+            password = self.gen_word(self.PASSWORD_MAX_LENGTH)
+            email = self.gen_word(self.EMAIL_MAX_LENGTH) + self.EMAIL_TAIL
             user = User(username=username, password=password,
                         email=email, is_staff=False, is_active=True,
                         is_superuser=False)
@@ -40,8 +41,8 @@ class Command(BaseCommand):
 
     def gen_tags(self):
         tag_list = []
-        for _ in range(self.TAG_CNT):
-            name = self.gen_text(self.TAG_MAX_LENGTH)
+        for i in range(self.TAG_CNT):
+            name = self.gen_word(self.TAG_MAX_LENGTH) + '_' + str(i)
             tag = Tag(name=name)
             tag_list.append(tag)
 
@@ -102,10 +103,13 @@ class Command(BaseCommand):
         symbol_cnt = random.randrange(max // 2, max, 1)
         text = ''
         while len(text) < symbol_cnt:
-            word = ''.join(random.choice(string.ascii_letters + string.digits)
-                           for _ in range(random.randint(1, 10)))
+            word = self.gen_word(self.WORD_MAX_LENGTH)
             text += word + ' '
         return text
+
+    def gen_word(self, max: int):
+        return ''.join(random.choice(string.ascii_letters + string.digits)
+                       for _ in range(random.randint(1, max)))
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS("Start generatrion!"))
