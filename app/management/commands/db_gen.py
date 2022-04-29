@@ -6,11 +6,11 @@ import string
 
 
 class Command(BaseCommand):
-    PROFILE_CNT = 10000
-    QUESTION_CNT = 100000
-    ANSWER_CNT = 1000000
-    TAG_CNT = 10000
-    LIKE_CNT = 2000000
+    PROFILE_CNT = 100
+    QUESTION_CNT = 1000
+    ANSWER_CNT = 10000
+    TAG_CNT = 100
+    LIKE_CNT = 20000
     USERNAME_MAX_LENGTH = 10
     PASSWORD_MAX_LENGTH = 20
     EMAIL_MAX_LENGTH = 10
@@ -45,8 +45,12 @@ class Command(BaseCommand):
             name = self.gen_word(self.TAG_MAX_LENGTH) + '_' + str(i)
             tag = Tag(name=name)
             tag_list.append(tag)
+            if (i % 1000 == 0):
+                Tag.objects.bulk_create(tag_list)
+                tag_list.clear()
 
-        Tag.objects.bulk_create(tag_list)
+        if (len(tag_list) != 0):
+            Tag.objects.bulk_create(tag_list)
 
     def gen_questions(self):
         for _ in range(self.QUESTION_CNT):
@@ -65,7 +69,7 @@ class Command(BaseCommand):
 
     def gen_answers(self):
         answer_list = []
-        for _ in range(self.ANSWER_CNT):
+        for i in range(self.ANSWER_CNT):
             text = self.gen_text(self.TEXT_MAX_LENGTH)
             owner = random.choice(Profile.objects.all())
             question = random.choice(Question.objects.all())
@@ -73,31 +77,55 @@ class Command(BaseCommand):
             answer = Answer(text=text, owner=owner,
                             question=question, rating=rating)
             answer_list.append(answer)
-        Answer.objects.bulk_create(answer_list)
+            if (i % 1000 == 0):
+                Answer.objects.bulk_create(answer_list)
+                answer_list.clear()
+        if (len(answer_list) != 0):
+            Answer.objects.bulk_create(answer_list)
 
-    def gen_likes(self):
+    def gen_likes_for_questions(self):
         like_question_list = []
         owners = Profile.objects.all()
         questions = Question.objects.all()
+        count = self.LIKE_CNT
         for owner in owners:
             for question in questions:
                 is_like = random.choice([True, False])
                 like = LikeForQuestion(
                     owner=owner, question=question, is_like=is_like)
                 like_question_list.append(like)
+                if (len(like_question_list) == 1000):
+                    LikeForQuestion.objects.bulk_create(like_question_list)
+                    like_question_list.clear()
+                    count -= 1000
+                    if (count <= 0):
+                        return
 
-        LikeForQuestion.objects.bulk_create(like_question_list)
+        if (len(like_question_list) != 0):
+            LikeForQuestion.objects.bulk_create(like_question_list)
+            like_question_list.clear()
 
+    def gen_likes_for_answers(self):
         like_answer_list = []
         answers = Answer.objects.all()
+        owners = Profile.objects.all()
+        count = self.LIKE_CNT
         for owner in owners:
-            for i in range(self.LIKE_CNT - len(like_question_list)):
+            for answer in answers:
                 is_like = random.choice([True, False])
                 like = LikeForAnswer(
-                    owner=owner, answer=answers[i], is_like=is_like)
+                    owner=owner, answer=answer, is_like=is_like)
                 like_answer_list.append(like)
+                if (len(like_answer_list) == 1000):
+                    LikeForAnswer.objects.bulk_create(like_answer_list)
+                    like_answer_list.clear()
+                    count -= 1000
+                    if (count <= 0):
+                        return
 
-        LikeForAnswer.objects.bulk_create(like_answer_list)
+        if (len(like_answer_list) != 0):
+            LikeForAnswer.objects.bulk_create(like_answer_list)
+            like_answer_list.clear()
 
     def gen_text(self, max: int):
         symbol_cnt = random.randrange(max // 2, max, 1)
@@ -121,5 +149,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Questions created!"))
         self.gen_answers()
         self.stdout.write(self.style.SUCCESS("Answers created!"))
-        self.gen_likes()
-        self.stdout.write(self.style.SUCCESS("Likes created!"))
+        self.gen_likes_for_questions()
+        self.stdout.write(self.style.SUCCESS("Likes for questions created!"))
+        self.gen_likes_for_answers()
+        self.stdout.write(self.style.SUCCESS("Likes for answers created!"))
